@@ -3,11 +3,13 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 // import reportWebVitals from './reportWebVitals';
+import Message from './Message';
 
 const myName = 'Kirill';
 ReactDOM.render(
   <React.StrictMode>
     <App name={myName} />
+    <Message name={myName} />
   </React.StrictMode>,
   document.getElementById("root")
 );
