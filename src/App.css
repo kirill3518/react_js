@@ -13,6 +13,22 @@
   }
 }
 
+.App {
+  background-color: #282c34;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+.App-send-button {
+  /* min-height: 100vh; */
+  border-color: darkgrey;
+  padding: 10px 40px;
+  margin-top: 10px;
+}
+
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
