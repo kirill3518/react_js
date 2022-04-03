@@ -1,73 +1,69 @@
-// import logo from './logo.svg';
 // import './App.css';
+import Message from './Message';
+import { useState, useEffect } from 'react';
+import InputForm from './InputForm';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+import Chat from './Chat';
+import { Grid } from '@mui/material';
 
-// function App() {
-//   return (
-//     <div className="App">
-//       <header className="App-header">
-//         <img src={logo} className="App-logo" alt="logo" />
-//         <p>
-//           Edit <code>src/App.js</code> and save to reload.
-//         </p>
-//         <a
-//           className="App-link"
-//           href="https://reactjs.org"
-//           target="_blank"
-//           rel="noopener noreferrer"
-//         >
-//           Learn React
-//         </a>
-//       </header>
-//     </div>
-//   );
-// }
+export default App;
 
-// export default App;
-
-import './App.css';
-// import Message from './Message';
-import React, { useState, useEffect } from 'react';
-
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: "#FF9800",
+    },
+    secondary: {
+      main: "#0098FF",
+    },
+  },
+});
 
 function App(props) {
-  // const [myState, setMyState] = useState({ messageList: [{ text: 'Text', author: 'Kirill' }], value: '' });
-  const [myState, setMyState] = useState({ messageList: [], value: '' });
+  const [messageList, setMessageList] = useState([]);
 
-  const handleChange = (event) => {
-    // Изменить только value
-    setMyState((state) => ({ messageList: state.messageList, value: event.target.value }));
-  };
-
-  const updateMessageList = () => {
-    // Изменить только messageList
-    setMyState((state) => ({ messageList: [...state.messageList, { text: state.value, author: 'Kirill' }], value: state.value }));
+  const addMessage = (message) => {
+    setMessageList((messages) => [...messages, { id: messages.length, text: message, author: 'Kirill' }]);
   };
 
   useEffect(() => {
     console.log('useEffect');
-    if (myState.messageList.length > 0) {
+    if (messageList.length > 0) {
       // Ответить роботу только если последний был не робот, чтобы избежать зацикливание
-      if (myState.messageList[myState.messageList.length - 1].author !== 'Robot') {
-        setMyState((state) => ({ messageList: [...state.messageList, { text: `Привет, ${state.messageList[state.messageList.length - 1].author}`, author: 'Robot' }], value: state.value }));
+      if (messageList[messageList.length - 1].author !== 'Robot') {
+        setMessageList((messages) => [...messages, { id: messages.length, text: `Привет, ${messages[messages.length - 1].author}`, author: 'Robot' }]);
       }
     }
-  }, [myState.messageList]);
+  }, [messageList]);
 
-
-  const result = myState.messageList.map((obj) => {
-    return <p>
+  const result = messageList.map((obj) => {
+    return <p key={obj.id}>
       {obj.author}: {obj.text}
     </p>;
   });
 
   return (
     <div className="App">
-      <input type="text" onChange={handleChange} />
-      <button className="App-send-button" onClick={updateMessageList}>Отправить</button>
+      <ThemeProvider theme={theme}>
+        <InputForm onAddMessage={addMessage} />
+        <Grid container spacing={2}>
+          <Grid item md={2}>
+            <nav aria-label="main mailbox folders">
+              <Chat />
+            </nav>
+          </Grid>
+          <Grid item md={10}>
+            <nav aria-label="secondary mailbox folders">
 
-      {result}
+              {/* если в props передавать массив с обьектами то map не работает */}
+              {/* < Message messages={messageList} /> */}
+
+              {/* поэтому в props передается массив строк */}
+              < Message messages={result} />
+            </nav>
+          </Grid>
+        </Grid>
+      </ThemeProvider>
     </div>
   );
-
 }
-export default App;
