@@ -15,7 +15,7 @@ function Message(props) {
                 <header className="Message-header">
                     <List>
                         {/* если в props передавать массив с обьектами то map не работает */}
-                        {/* {messageList.map((item) => (
+                        {/* {props.messages.map((item) => (
                             <ListItem key={item.id}>
                                 {item.name}
                             </ListItem>
