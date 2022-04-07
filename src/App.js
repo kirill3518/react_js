@@ -5,6 +5,9 @@ import InputForm from './InputForm';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import Chat from './Chat';
 import { Grid } from '@mui/material';
+import { BrowserRouter, Link, NavLink, Route, Routes } from "react-router-dom";
+import Home from './Home';
+import { ChatList } from './ChatList';
 
 export default App;
 
@@ -36,33 +39,29 @@ function App(props) {
     }
   }, [messageList]);
 
-  const result = messageList.map((obj) => {
-    return <p key={obj.id}>
-      {obj.author}: {obj.text}
-    </p>;
-  });
-
   return (
     <div className="App">
       <ThemeProvider theme={theme}>
-        <InputForm onAddMessage={addMessage} />
-        <Grid container spacing={2}>
-          <Grid item md={2}>
-            <nav aria-label="main mailbox folders">
-              <Chat />
-            </nav>
-          </Grid>
-          <Grid item md={10}>
-            <nav aria-label="secondary mailbox folders">
-
-              {/* если в props передавать массив с обьектами то map не работает */}
-              {/* < Message messages={messageList} /> */}
-
-              {/* поэтому в props передается массив строк */}
-              < Message messages={result} />
-            </nav>
-          </Grid>
-        </Grid>
+        <BrowserRouter>
+          <ul>
+            <li>
+              <NavLink to="/">
+                Home
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to="/chat">
+                Chat
+              </NavLink>
+            </li>
+          </ul>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/chat" element={<ChatList />} >
+              <Route path=":id" element={<Chat />} />
+            </Route>
+          </Routes>
+        </BrowserRouter>
       </ThemeProvider>
     </div>
   );

@@ -1,11 +1,10 @@
 // import './Message.css';
-import { ThemeProvider } from '@mui/material/styles';
-import { useTheme } from '@mui/material/styles';
-import { List } from '@mui/material';
+import { useTheme, ThemeProvider } from '@mui/material/styles';
+import { List, ListItem } from '@mui/material';
 
 export default Message;
 
-function Message(props) {
+function Message({ messages }) {
 
     const theme = useTheme();
 
@@ -14,15 +13,11 @@ function Message(props) {
             <ThemeProvider theme={theme}>
                 <header className="Message-header">
                     <List>
-                        {/* если в props передавать массив с обьектами то map не работает */}
-                        {/* {props.messages.map((item) => (
-                            <ListItem key={item.id}>
-                                {item.name}
+                        {messages.map(({ id, text, author }) =>
+                            <ListItem key={id}>
+                                {author}: {text}
                             </ListItem>
-                        ))} */}
-
-                        {/* поэтому в props передается массив строк */}
-                        {props.messages}
+                        )}
                     </List>
                 </header>
             </ThemeProvider>

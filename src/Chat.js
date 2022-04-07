@@ -29,5 +29,4 @@ function Chat() {
             </ThemeProvider>
         </div >
     );
-
 }
