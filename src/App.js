@@ -48,6 +48,7 @@ function App(props) {
             <Route path="/chat" element={<ChatList />}>
               <Route path=":id" element={<Chat />} />
             </Route>
+            <Route path="*" element={<h4>404</h4>} />
           </Routes>
         </BrowserRouter>
       </ThemeProvider>
