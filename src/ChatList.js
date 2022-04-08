@@ -1,5 +1,4 @@
-import { Link } from "react-router-dom";
-
+import { Link, Outlet } from "react-router-dom";
 
 const chats = [
     {
@@ -17,14 +16,16 @@ const chats = [
 ];
 
 export const ChatList = () => {
-
     return (
-        <div className="chat-list">
-            {chats.map((chat) => (
-                <Link to={`/chat/${chat.id}`} key={chat.id}>
-                    <div>{chat.name}</div>
-                </Link>
-            ))}
-        </div >
+        <>
+            <div className="chat-list">
+                {chats.map((chat) => (
+                    <Link to={`/chat/${chat.id}`} key={chat.id}>
+                        <div>{chat.name}</div>
+                    </Link>
+                ))}
+            </div >
+            <Outlet />
+        </>
     )
 };
