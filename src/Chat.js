@@ -1,16 +1,32 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useTheme, ThemeProvider } from '@mui/material/styles';
-import { List, ListItem } from '@mui/material';
+import { useParams } from 'react-router-dom';
+import Message from './Message';
+import InputForm from './InputForm';
 
-export default Chat;
+const initMessages = {
+    chat1: [],
+    chat2: [],
+    chat3: []
+};
 
-function Chat() {
+export const Chat = () => {
+    const { id } = useParams();
 
-    const [chatList, setChatList] = useState([{ id: 'id1', name: 'Chat #1' }]);
+    const [messages, setMessages] = useState(initMessages);
 
-    // const addChat = (() => {
-    //     setChatList((chats) => [...chats, { id: `id${chats.length + 1}`, name: `Chat #${chats.length + 1}` }]);
-    // });
+    const addMessage = (message) => {
+        setMessages({ ...messages, [id]: [...messages[id], { text: message, author: 'Kirill', id: messages[id].length }] });
+    };
+
+    useEffect(() => {
+        if (messages[id].length > 0) {
+            // Ответить роботу только если последний был не робот, чтобы избежать зацикливание
+            if (messages[id][messages[id].length - 1].author !== 'Robot') {
+                setMessages({ ...messages, [id]: [...messages[id], { text: `Привет, ${messages[id][messages[id].length - 1].author}`, author: 'Robot', id: messages[id].length }] });
+            }
+        }
+    }, [messages[id]]);
 
     const theme = useTheme();
 
@@ -18,13 +34,10 @@ function Chat() {
         <div className="Chat">
             <ThemeProvider theme={theme}>
                 <header className="Chat-header">
-                    <List>
-                        {chatList.map((item) => (
-                            <ListItem key={item.id}>
-                                {item.name}
-                            </ListItem>
-                        ))}
-                    </List>
+                    <div>
+                        <Message messages={messages[id]} />
+                        <InputForm onAddMessage={addMessage} />
+                    </div>
                 </header>
             </ThemeProvider>
         </div >
