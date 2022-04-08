@@ -1,10 +1,11 @@
 // import './App.css';
-import Message from './Message';
-import { useState, useEffect } from 'react';
-import InputForm from './InputForm';
+
 import { ThemeProvider, createTheme } from '@mui/material/styles';
-import Chat from './Chat';
-import { Grid } from '@mui/material';
+import { Chat } from './Chat';
+import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
+import Home from './Home';
+import { ChatList } from './ChatList';
+import { Profile } from './Profile';
 
 export default App;
 
@@ -20,49 +21,35 @@ const theme = createTheme({
 });
 
 function App(props) {
-  const [messageList, setMessageList] = useState([]);
-
-  const addMessage = (message) => {
-    setMessageList((messages) => [...messages, { id: messages.length, text: message, author: 'Kirill' }]);
-  };
-
-  useEffect(() => {
-    console.log('useEffect');
-    if (messageList.length > 0) {
-      // Ответить роботу только если последний был не робот, чтобы избежать зацикливание
-      if (messageList[messageList.length - 1].author !== 'Robot') {
-        setMessageList((messages) => [...messages, { id: messages.length, text: `Привет, ${messages[messages.length - 1].author}`, author: 'Robot' }]);
-      }
-    }
-  }, [messageList]);
-
-  const result = messageList.map((obj) => {
-    return <p key={obj.id}>
-      {obj.author}: {obj.text}
-    </p>;
-  });
-
   return (
     <div className="App">
       <ThemeProvider theme={theme}>
-        <InputForm onAddMessage={addMessage} />
-        <Grid container spacing={2}>
-          <Grid item md={2}>
-            <nav aria-label="main mailbox folders">
-              <Chat />
-            </nav>
-          </Grid>
-          <Grid item md={10}>
-            <nav aria-label="secondary mailbox folders">
-
-              {/* если в props передавать массив с обьектами то map не работает */}
-              {/* < Message messages={messageList} /> */}
-
-              {/* поэтому в props передается массив строк */}
-              < Message messages={result} />
-            </nav>
-          </Grid>
-        </Grid>
+        <BrowserRouter>
+          <ul>
+            <li>
+              <Link to="/">
+                Home
+              </Link>
+            </li>
+            <li>
+              <Link to="/chat">
+                Chat
+              </Link>
+            </li>
+            <li>
+              <Link to="/profile">
+                Profile
+              </Link>
+            </li>
+          </ul>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/chat" element={<ChatList />}>
+              <Route path=":id" element={<Chat />} />
+            </Route>
+          </Routes>
+        </BrowserRouter>
       </ThemeProvider>
     </div>
   );

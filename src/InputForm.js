@@ -1,8 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
-import { useTheme } from '@mui/material/styles';
-import { ThemeProvider } from '@mui/material/styles';
+import { useTheme, ThemeProvider } from '@mui/material/styles';
 
 export default InputForm;
 
@@ -22,8 +21,7 @@ function InputForm(props) {
     const sendMessage = () => {
         props.onAddMessage(myText);
         inputRef.current?.focus();
-        // setMyText('');
-        // inputRef.current?.value = '';
+        setMyText('');
     };
 
     const theme = useTheme();
@@ -36,6 +34,7 @@ function InputForm(props) {
                     id="outlined-basic"
                     label="Outlined"
                     variant="outlined"
+                    value={myText}
                     onChange={handleChange}
                     inputRef={inputRef}
                 />
