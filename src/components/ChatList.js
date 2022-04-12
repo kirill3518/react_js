@@ -19,7 +19,7 @@ const chats = [
 export const ChatList = () => {
     return (
         <>
-            <div className="Chat-list">
+            <div className="App-header">
                 {chats.map((chat) => (
                     <Link to={`/chat/${chat.id}`} key={chat.id}>
                         <div>{chat.name}</div>

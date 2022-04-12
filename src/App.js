@@ -4,7 +4,7 @@ import { Chat } from './components/Chat';
 import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
 import Home from './components/Home';
 import { ChatList } from './components/ChatList';
-import { Profile } from './components/Profile';
+import { Profile } from './components/Profile/Profile';
 import { Provider } from 'react-redux';
 import { store } from './store';
 

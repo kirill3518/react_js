@@ -1,6 +1,7 @@
-import '../App.css';
+import '../../App.css';
+import './Profile.styles.scss';
 import { useDispatch, useSelector } from "react-redux";
-import { toggleCheckbox } from "../store/profile/actions";
+import { toggleCheckbox } from "../../store/profile/actions";
 
 export const Profile = () => {
     const dispatch = useDispatch();
@@ -12,14 +13,14 @@ export const Profile = () => {
 
     return (
         <>
-            <div className='App-profile'>
+            <div className='App-header'>
                 <h3>Profile</h3>
-                {state.showName && <span>{state.name}</span>}
                 {/* <button onClick={handleClick}>change show name</button> */}
-                <label >
+                <label className='Profile-label' >
                     <input type="checkbox" checked={state.showName} onChange={handleClick}></input>
-                    <div>change show name</div>
+                    <span>change show name</span>
                 </label>
+                {state.showName && <span>{state.name}</span>}
             </div>
         </>
     );

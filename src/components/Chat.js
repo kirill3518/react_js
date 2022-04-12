@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useTheme, ThemeProvider } from '@mui/material/styles';
 import { Navigate, useParams } from 'react-router-dom';
-import Message from './Message';
+import Message from './Message/Message';
 import InputForm from './InputForm';
 
 const initMessages = {
@@ -38,7 +38,7 @@ export const Chat = () => {
     return (
         <div className="Chat">
             <ThemeProvider theme={theme}>
-                <header className="Chat-header">
+                <header>
                     <div>
                         <Message messages={messages[id]} />
                         <InputForm onAddMessage={addMessage} />
