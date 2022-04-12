@@ -1,7 +1,8 @@
+import '../App.css';
 import * as React from "react";
 
 export default function Home() {
     return (
-        <p>Home page</p>
+        <p className='App-header'>Home page</p>
     );
 }

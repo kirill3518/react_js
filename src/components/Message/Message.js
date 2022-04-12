@@ -1,4 +1,4 @@
-// import './Message.css';
+import './Message.styles.scss';
 import { useTheme, ThemeProvider } from '@mui/material/styles';
 import { List, ListItem } from '@mui/material';
 

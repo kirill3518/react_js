@@ -1,3 +1,4 @@
+import '../App.css';
 import { Link, Outlet } from "react-router-dom";
 
 const chats = [
@@ -18,7 +19,7 @@ const chats = [
 export const ChatList = () => {
     return (
         <>
-            <div className="chat-list">
+            <div className="App-header">
                 {chats.map((chat) => (
                     <Link to={`/chat/${chat.id}`} key={chat.id}>
                         <div>{chat.name}</div>
