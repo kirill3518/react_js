@@ -1,4 +1,4 @@
-import '../../App.css';
+import '../../App.styles.scss';
 import './Profile.styles.scss';
 import { useDispatch, useSelector } from "react-redux";
 import { toggleCheckbox } from "../../store/profile/actions";

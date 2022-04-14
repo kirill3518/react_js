@@ -1,31 +1,31 @@
-import '../App.css';
+import '../App.styles.scss';
 import { Link, Outlet } from "react-router-dom";
+import InputForm from './InputForm';
 
-const chats = [
-    {
-        name: "Chat1",
-        id: "chat1"
-    },
-    {
-        name: "Chat2",
-        id: "chat2"
-    },
-    {
-        name: "Chat3",
-        id: "chat3"
-    }
-];
+export const ChatList = ({ chats, addChat, deleteChat }) => {
+    console.log(`(1) chats = ${chats}`, `; (2) addChat = ${addChat}`, `; (3) deleteChat = ${deleteChat}`);
 
-export const ChatList = () => {
+    const handleSubmit = (newChatName) => {
+        const newChat = {
+            name: newChatName,
+            id: `chat-${Date.now()}`
+        }
+        addChat(newChat);
+    };
+
     return (
         <>
             <div className="App-header">
                 {chats.map((chat) => (
-                    <Link to={`/chat/${chat.id}`} key={chat.id}>
-                        <div>{chat.name}</div>
-                    </Link>
+                    <div key={chat.id}>
+                        <Link to={`/chat/${chat.id}`}>
+                            {chat.name}
+                        </Link>
+                        <span onClick={() => deleteChat(chat.id)}>delete</span>
+                    </div>
                 ))}
             </div >
+            <InputForm onAddMessage={handleSubmit} />
             <Outlet />
         </>
     )
