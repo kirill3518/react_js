@@ -7,7 +7,7 @@ import Home from './components/Home';
 import { ChatList } from './components/ChatList';
 import { Profile } from './components/Profile/Profile';
 import { shallowEqual, useSelector, useDispatch } from 'react-redux';
-import { store } from './store';
+// import { store } from './store';
 import { selectChats } from './store/chat/selectors';
 import { addChat, deleteChat } from './store/chat/actions';
 import { ThemeContext } from '../src/utils/ThemeContext';
@@ -61,6 +61,8 @@ function App() {
   };
 
   const addNewChat = (newChat) => {
+    console.log('newChat=');
+    console.log(newChat);
     dispatch(addChat(newChat));
     setMessages((prevMessages) => ({ ...prevMessages, [newChat.id]: [] }))
   };
