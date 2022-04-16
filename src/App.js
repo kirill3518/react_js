@@ -14,49 +14,46 @@ import { ThemeContext } from '../src/utils/ThemeContext';
 
 export default App;
 
-// const ThemeContext = createTheme({
-//   palette: {
-//     primary: {
-//       main: "#FF9800",
-//     },
-//     secondary: {
-//       main: "#0098FF",
-//     },
+// const initialChats = [
+//   {
+//     name: "Chat1",
+//     id: "chat1"
 //   },
-// });
+//   {
+//     name: "Chat2",
+//     id: "chat2"
+//   },
+//   {
+//     name: "Chat3",
+//     id: "chat3"
+//   }
+// ];
 
-const initialChats = [
-  {
-    name: "Chat1",
-    id: "chat1"
-  },
-  {
-    name: "Chat2",
-    id: "chat2"
-  },
-  {
-    name: "Chat3",
-    id: "chat3"
-  }
-];
+// const initMessages = initialChats.reduce((acc, chat) => {
+//   acc[chat.id] = [];
+//   return acc;
+// }, {});
 
-const initMessages = initialChats.reduce((acc, chat) => {
-  acc[chat.id] = [];
-  return acc;
-}, {});
+const initMessages = {};
 
 function App() {
+  // console.log(initMessages);
   const [theme, setTheme] = useState("dark");
 
   const chats = useSelector(selectChats, shallowEqual);
+  // const chats = useSelector(selectChats);
   const dispatch = useDispatch();
   const [messages, setMessages] = useState(initMessages);
+  console.log(messages);
 
   const toggleTheme = () => {
     setTheme((prevTheme) => (prevTheme === "dark" ? "light" : "dark"));
   }
 
   const addMessage = (newMsg, id) => {
+    console.log(messages);
+    console.log(newMsg);
+    console.log(id);
     setMessages({ ...messages, [id]: [...messages[id], newMsg] });
   };
 
@@ -64,14 +61,23 @@ function App() {
     console.log('newChat=');
     console.log(newChat);
     dispatch(addChat(newChat));
-    setMessages((prevMessages) => ({ ...prevMessages, [newChat.id]: [] }))
+    console.log({ [newChat.id]: [] });
+    setMessages((prevMessages) => {
+      console.log(prevMessages);
+      return { ...prevMessages, [newChat.id]: [] };
+    });
+    console.log('messages=');
+    console.log(messages);
   };
 
   const removeChat = (id) => {
+    console.log('id=');
+    console.log(id);
     dispatch(deleteChat(id));
     setMessages((prevMessages) => {
       const newMessages = { ...prevMessages };
-      delete newMessages(id);
+      // delete newMessages(id);
+      delete newMessages[id];
 
       return newMessages;
     });

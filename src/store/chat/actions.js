@@ -5,16 +5,16 @@ export const addChat = (newChat) => {
     console.log(newChat);
     console.log({
         type: ADD_CHAT,
-        payLoad: newChat
+        payload: newChat
     });
 
     return {
         type: ADD_CHAT,
-        payLoad: newChat
+        payload: newChat
     }
 };
 
 export const deleteChat = (idToDelete) => ({
     type: DELETE_CHAT,
-    payLoad: idToDelete
+    payload: idToDelete
 });

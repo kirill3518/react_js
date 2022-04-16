@@ -1,6 +1,7 @@
 import '../App.styles.scss';
 import { Link, Outlet } from "react-router-dom";
 import InputForm from './InputForm';
+import { useTheme, ThemeProvider } from '@mui/material/styles';
 
 export const ChatList = ({ chats, addChat, deleteChat }) => {
     // console.log(`(1) chats = ${chats}`, `; (2) addChat = ${addChat}`, `; (3) deleteChat = ${deleteChat}`);
@@ -11,23 +12,18 @@ export const ChatList = ({ chats, addChat, deleteChat }) => {
         console.log(`newChatName=${newChatName}`);
         const newChat = {
             name: newChatName,
-            id: `chat-${Date.now()}`
+            // id: `chat-${Date.now()}`
+            id: `chat${chats.length}`
         };
         addChat(newChat);
     };
 
-    if (!chats) {
-        return (
-            <>
-                <div className="App-header">
-                    Чаты не обнаружены
-                </div >
-            </>
-        )
-    } else {
-        return (
-            <>
-                <div className="App-header">
+    const theme = useTheme();
+
+    return (
+        <>
+            <div className="App-header">
+                <ThemeProvider theme={theme}>
                     {chats.map((chat) => (
                         <div key={chat.id}>
                             <Link to={`/chat/${chat.id}`}>
@@ -36,11 +32,11 @@ export const ChatList = ({ chats, addChat, deleteChat }) => {
                             <span onClick={() => deleteChat(chat.id)}>delete</span>
                         </div>
                     ))}
-                </div >
-                <div>Add Chat</div>
-                <InputForm onAddMessage={handleSubmit} />
-                <Outlet />
-            </>
-        )
-    }
+                </ThemeProvider>
+            </div >
+            <div>Add Chat</div>
+            <InputForm onAddMessage={handleSubmit} />
+            <Outlet />
+        </>
+    )
 };
