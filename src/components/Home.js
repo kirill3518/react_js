@@ -1,4 +1,4 @@
-import '../App.css';
+import '../App.styles.scss';
 import * as React from "react";
 
 export default function Home() {
