@@ -5,9 +5,6 @@ const initialState = [];
 export const chatReducer = (state = initialState, { type, payload }) => {
     switch (type) {
         case ADD_CHAT: {
-            console.log('case ADD_CHAT');
-            console.log(type);
-            console.log(payload);
             return [...state, payload];
         }
         case DELETE_CHAT: {

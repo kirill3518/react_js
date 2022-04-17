@@ -6,7 +6,6 @@ import { toggleCheckbox } from "../../store/profile/actions";
 export const Profile = () => {
     const dispatch = useDispatch();
     const state = useSelector((state) => state);
-    console.log(state);
     const handleClick = () => {
         dispatch(toggleCheckbox);
     };
@@ -15,7 +14,6 @@ export const Profile = () => {
         <>
             <div className='App-header'>
                 <h3>Profile</h3>
-                {/* <button onClick={handleClick}>change show name</button> */}
                 <label className='Profile-label' >
                     <input type="checkbox" checked={state.showName} onChange={handleClick}></input>
                     <span>change show name</span>

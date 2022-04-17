@@ -6,7 +6,7 @@ import { useTheme, ThemeProvider } from '@mui/material/styles';
 
 export default InputForm;
 
-function InputForm(props) {
+function InputForm({ onAddMessage }) {
     const [myText, setMyText] = useState('');
 
     const inputRef = useRef(null);
@@ -20,7 +20,7 @@ function InputForm(props) {
     }, []);
 
     const sendMessage = () => {
-        props.onAddMessage(myText);
+        onAddMessage(myText);
         inputRef.current?.focus();
         setMyText('');
     };
