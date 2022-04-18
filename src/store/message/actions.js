@@ -1,15 +1,15 @@
-export const ADD_MESSAGE = "CHAT::ADD_MESSAGE";
-export const DELETE_MESSAGE = "CHAT::DELETE_MESSAGE";
+export const ADD_MESSAGES = "CHAT::ADD_MESSAGES";
+export const DELETE_MESSAGES = "CHAT::DELETE_MESSAGES";
 
 export const addMessage = (newMessage) => {
 
     return {
-        type: ADD_MESSAGE,
+        type: ADD_MESSAGES,
         payload: newMessage
     }
 };
 
 export const deleteMessage = (idToDelete) => ({
-    type: DELETE_MESSAGE,
+    type: DELETE_MESSAGES,
     payload: idToDelete
 });

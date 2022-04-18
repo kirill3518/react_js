@@ -1,9 +1,13 @@
 import './ChatList.styles.scss';
 import { Link, Outlet } from "react-router-dom";
 import InputForm from '../InputForm';
-import { useTheme, ThemeProvider } from '@mui/material/styles';
+import { selectChats } from '../../store/chat/selectors';
+import { shallowEqual, useSelector } from 'react-redux';
 
-export const ChatList = ({ chats, addChat, deleteChat }) => {
+export const ChatList = ({ addChat, deleteChat }) => {
+
+    const chats = useSelector(selectChats, shallowEqual);
+
     console.log(chats);
 
     const handleSubmit = (newChatName) => {
@@ -15,27 +19,23 @@ export const ChatList = ({ chats, addChat, deleteChat }) => {
         addChat(newChat);
     };
 
-    const theme = useTheme();
-
     return (
         <>
-            <ThemeProvider theme={theme}>
-                <div className="App-header ChatList-header">
-                    <div>
-                        <p>Add Chat</p>
-                        {chats.map((chat) => (
-                            <div key={chat.id}>
-                                <Link to={`/chat/${chat.id}`}>
-                                    {chat.name}
-                                </Link>
-                                <span onClick={() => deleteChat(chat.id)} className="Delete-chat">delete</span>
-                            </div>
-                        ))}
-                        <InputForm onAddMessage={handleSubmit} />
-                    </div>
-                    <Outlet />
-                </div >
-            </ThemeProvider>
+            <div className="App-header ChatList-header">
+                <div>
+                    <p>Add Chat</p>
+                    {chats.map((chat) => (
+                        <div key={chat.id}>
+                            <Link to={`/chat/${chat.id}`}>
+                                {chat.name}
+                            </Link>
+                            <span onClick={() => deleteChat(chat.id)} className="Delete-chat">delete</span>
+                        </div>
+                    ))}
+                    <InputForm onAddMessage={handleSubmit} />
+                </div>
+                <Outlet />
+            </div >
         </>
     )
 };

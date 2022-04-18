@@ -1,6 +1,5 @@
 import './Chat.styles.scss';
 import { useEffect } from 'react';
-import { useTheme, ThemeProvider } from '@mui/material/styles';
 import { Navigate, useParams } from 'react-router-dom';
 import Message from '../Message/Message';
 import InputForm from '../InputForm';
@@ -37,23 +36,19 @@ export const Chat = ({ messages, addNewMessage }) => {
         }
     }, [messages, addNewMessage, id]);
 
-    const theme = useTheme();
-
     if (!messages[id]) {
         return <Navigate to="/chat" replace />
     }
 
     return (
         <div className="Chat">
-            <ThemeProvider theme={theme}>
-                <header>
-                    <div className='Chat-messages'>
-                        <p>Add Message</p>
-                        <Message messages={messages[id]} />
-                        <InputForm onAddMessage={sendMessage} />
-                    </div>
-                </header>
-            </ThemeProvider>
+            <header>
+                <div className='Chat-messages'>
+                    <p>Add Message</p>
+                    <Message messages={messages[id]} />
+                    <InputForm onAddMessage={sendMessage} />
+                </div>
+            </header>
         </div >
     );
 }
