@@ -1,5 +1,4 @@
 import './Chat.styles.scss';
-import { useEffect } from 'react';
 import { Navigate, useParams } from 'react-router-dom';
 import Message from '../Message/Message';
 import InputForm from '../InputForm';
@@ -14,27 +13,12 @@ export const Chat = ({ messages, addNewMessage }) => {
             {
                 author: 'Kirill',
                 text,
-                id: `msg-${messages[id].length}`
+                id: `msg-${Date.now()}`
+                // id: `msg-${messages[id].length}`
             },
             id
         );
     }
-
-    useEffect(() => {
-        if (messages[id]?.length > 0) {
-            // Ответить роботу только если последний был не робот, чтобы избежать зацикливание
-            if (messages[id][messages[id].length - 1].author !== 'Robot') {
-                addNewMessage(
-                    {
-                        author: 'Robot',
-                        text: `Привет, ${messages[id][messages[id].length - 1].author}`,
-                        id: `msg-${messages[id].length}`
-                    },
-                    id
-                );
-            }
-        }
-    }, [messages, addNewMessage, id]);
 
     if (!messages[id]) {
         return <Navigate to="/chat" replace />

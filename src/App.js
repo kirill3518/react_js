@@ -7,7 +7,7 @@ import { Profile } from './components/Profile/Profile';
 import { shallowEqual, useSelector, useDispatch } from 'react-redux';
 import { addChat, deleteChat } from './store/chat/actions';
 import { selectMessages } from './store/message/selectors';
-import { addMessage, deleteMessage } from './store/message/actions';
+import { addMessageWithThunk, deleteMessage } from './store/message/actions';
 
 export default App;
 
@@ -18,18 +18,18 @@ function App() {
   const dispatch = useDispatch();
 
   const addNewMessage = (newMsg, id) => {
-    dispatch(addMessage({ [id]: [...messages[id], newMsg] }));
+    dispatch(addMessageWithThunk(newMsg, id));
   };
 
   const addNewChat = (newChat) => {
     dispatch(addChat(newChat));
-    dispatch(addMessage({ [newChat.id]: [] }));
+    dispatch(addMessageWithThunk([], newChat.id));
   };
 
   const removeChat = (id) => {
     dispatch(deleteChat(id));
     dispatch(deleteMessage(id));
-    // return <Navigate to="/chat" replace />
+    //// return <Navigate to="/chat" replace />
   };
 
   return (

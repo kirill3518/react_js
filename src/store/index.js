@@ -1,7 +1,10 @@
-import { combineReducers, createStore } from "redux";
+import { combineReducers, createStore, applyMiddleware, compose } from "redux";
 import { chatReducer } from "./chat/reducer";
 import { messageReducer } from "./message/reducer";
 import { profileReducer } from "./profile/reducer";
+import thunk from "redux-thunk";
+
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 export const store = createStore(
     combineReducers({
@@ -9,5 +12,5 @@ export const store = createStore(
         chats: chatReducer,
         messages: messageReducer
     }),
-    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+    composeEnhancers(applyMiddleware(thunk))
 );
