@@ -2,7 +2,6 @@ import '../App.styles.scss';
 import { useState, useRef, useEffect } from 'react';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
-import { useTheme, ThemeProvider } from '@mui/material/styles';
 
 export default InputForm;
 
@@ -25,32 +24,26 @@ function InputForm({ onAddMessage }) {
         setMyText('');
     };
 
-    const theme = useTheme();
-
     return (
         <div className="InputForm">
-            <ThemeProvider theme={theme}>
-                <TextField
-                    style={{ margin: '20px' }}
-                    id="outlined-basic"
-                    label="Outlined"
-                    variant="outlined"
-                    value={myText}
-                    onChange={handleChange}
-                    inputRef={inputRef}
-                />
-                <Button
-                    variant="contained"
-                    onClick={sendMessage}
-                    style={{
-                        margin: "20px",
-                        backgroundColor: theme.palette.primary.main,
-                        borderColor: theme.palette.secondary.main
-                    }}
-                >
-                    Send
-                </Button>
-            </ThemeProvider>
+            <TextField
+                style={{ margin: '20px' }}
+                id="outlined-basic"
+                label="Outlined"
+                variant="outlined"
+                value={myText}
+                onChange={handleChange}
+                inputRef={inputRef}
+            />
+            <Button
+                variant="contained"
+                onClick={sendMessage}
+                style={{
+                    margin: "20px"
+                }}
+            >
+                Send
+            </Button>
         </div>
     );
 }

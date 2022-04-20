@@ -1,14 +1,17 @@
-import { ADD_MESSAGE, DELETE_MESSAGE } from "./actions";
+import { ADD_MESSAGES, DELETE_MESSAGES } from "./actions";
 
 const initialState = {};
 
 export const messageReducer = (state = initialState, { type, payload }) => {
-
     switch (type) {
-        case ADD_MESSAGE: {
-            return { ...state, ...payload };
+        case ADD_MESSAGES: {
+            if (payload.newMessage?.length === 0) {
+                return { ...state, [payload.chatId]: [] };
+            } else {
+                return { ...state, [payload.chatId]: [...state[payload.chatId], payload.newMessage] };
+            }
         }
-        case DELETE_MESSAGE: {
+        case DELETE_MESSAGES: {
             delete state[payload];
             return state;
         }
