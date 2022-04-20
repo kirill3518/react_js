@@ -5,7 +5,7 @@ import { toggleCheckbox } from "../../store/profile/actions";
 
 export const Profile = () => {
     const dispatch = useDispatch();
-    const state = useSelector((state) => state);
+    const state = useSelector((state) => state.profile);
     const handleClick = () => {
         dispatch(toggleCheckbox);
     };

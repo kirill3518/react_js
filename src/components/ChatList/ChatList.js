@@ -1,23 +1,8 @@
 import './ChatList.styles.scss';
 import { Link, Outlet } from "react-router-dom";
 import InputForm from '../InputForm';
-import { selectChats } from '../../store/chat/selectors';
-import { shallowEqual, useSelector } from 'react-redux';
 
-export const ChatList = ({ addChat, deleteChat }) => {
-
-    const chats = useSelector(selectChats, shallowEqual);
-
-    console.log(chats);
-
-    const handleSubmit = (newChatName) => {
-        const newChat = {
-            name: newChatName,
-            id: `chat-${Date.now()}`
-            // id: `chat${chats.length}`
-        };
-        addChat(newChat);
-    };
+export const ChatList = ({ chats, handleSubmit, deleteChat }) => {
 
     return (
         <>

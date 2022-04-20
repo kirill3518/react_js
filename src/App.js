@@ -2,7 +2,7 @@ import './App.styles.scss';
 import { Chat } from './components/Chat/Chat';
 import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
 import Home from './components/Home';
-import { ChatList } from './components/ChatList/ChatList';
+import { ChatListContainer } from './components/ChatList/ChatListContainer';
 import { Profile } from './components/Profile/Profile';
 import { shallowEqual, useSelector, useDispatch } from 'react-redux';
 import { addChat, deleteChat } from './store/chat/actions';
@@ -55,7 +55,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/profile" element={<Profile />} />
-          <Route path="/chat" element={<ChatList addChat={addNewChat} deleteChat={removeChat} />}>
+          <Route path="/chat" element={<ChatListContainer addChat={addNewChat} deleteChat={removeChat} />}>
             <Route path=":id" element={<Chat messages={messages} addNewMessage={addNewMessage} />} />
           </Route>
           <Route path="*" element={<h4>404</h4>} />
