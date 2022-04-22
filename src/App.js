@@ -8,6 +8,7 @@ import { shallowEqual, useSelector, useDispatch } from 'react-redux';
 import { addChat, deleteChat } from './store/chat/actions';
 import { selectMessages } from './store/message/selectors';
 import { addMessageWithThunk, deleteMessage } from './store/message/actions';
+import { Gists } from './components/Gists/Gists';
 
 export default App;
 
@@ -51,10 +52,16 @@ function App() {
               Profile
             </Link>
           </li>
+          <li>
+            <Link to="/gists">
+              Gists
+            </Link>
+          </li>
         </ul>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/gists" element={<Gists />} />
           <Route path="/chat" element={<ChatListContainer addChat={addNewChat} deleteChat={removeChat} />}>
             <Route path=":id" element={<Chat messages={messages} addNewMessage={addNewMessage} />} />
           </Route>
