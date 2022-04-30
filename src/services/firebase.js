@@ -5,7 +5,7 @@ import {
     signOut,
     getAuth
 } from "firebase/auth";
-// import {getDatabase } from "firebase/database";
+import { getDatabase, ref } from "firebase/database";
 
 const firebaseConfig = {
     apiKey: "AIzaSyAq2-CYrp0VKxYSnV7FKicYWrAIY8oK13k",
@@ -20,7 +20,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 
 export const auth = getAuth(app);
-// export const db = getDatabase(app);
+export const db = getDatabase(app);
 
 export const signUp = async (email, pass) => {
     await createUserWithEmailAndPassword(auth, email, pass);
@@ -34,11 +34,11 @@ export const logOut = async () => {
     await signOut(auth);
 };
 
-// export const userRef = ref(db, "user");
-// export const userNameRef = ref(db, "user/name");
-// export const userShowNameRef = ref(db, "user/showName");
-// export const chatsRef = ref(db, "chats");
-// export const msgsRef = ref(db, "messages");
-// export const getChatRefById = (id) => ref(db, `chats/${id}`);
-// export const getMsgsRefById = (chatId) => ref(db, `messages/${chatId}`);
-// export const getMsgsListRefById = (chatId) => ref(db, `messages/${chatId}/messageList`);
+export const userRef = ref(db, "user");
+export const userNameRef = ref(db, "user/name");
+export const userShowNameRef = ref(db, "user/showName");
+export const chatsRef = ref(db, "chats");
+export const msgsRef = ref(db, "messages");
+export const getChatRefById = (id) => ref(db, `chats/${id}`);
+export const getMsgsRefById = (chatId) => ref(db, `messages/${chatId}`);
+export const getMsgsListRefById = (chatId) => ref(db, `messages/${chatId}/messageList`);
