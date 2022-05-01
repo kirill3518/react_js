@@ -10,8 +10,10 @@ import { selectMessages } from './store/message/selectors';
 import { addMessageWithThunk, deleteMessage } from './store/message/actions';
 import { Gists } from './components/Gists/Gists';
 import { PrivateRoute } from './components/PrivateRoute/PrivateRoute';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { PublicRoute } from './components/PublicRoute/PublicRoute';
+import { onAuthStateChanged } from 'firebase/auth';
+import { auth } from './services/firebase';
 
 export default App;
 
@@ -45,6 +47,18 @@ function App() {
   const handleLogout = () => {
     setAuthed(false);
   };
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        handleLogin();
+      } else {
+        handleLogout();
+      }
+    });
+
+    return unsubscribe;
+  }, []);
 
   return (
     < div className="App" >
